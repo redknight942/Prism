@@ -14,12 +14,12 @@
 #include <limits>
 
 //*********************************************************************
-// getSignedIntegerInput
+// get_signed_integer_input
 // Validates an user-provided integer input.
 // prompt: user provided integer input.
 // Return- validated signed input.
 //**********************************************************************
-inline int getSignedIntegerInput(const std::string& prompt) {
+inline int get_signed_integer_input(const std::string& prompt) {
     int input;
     std::cout << prompt;
     std::cin >> input;
@@ -36,12 +36,12 @@ inline int getSignedIntegerInput(const std::string& prompt) {
 }
 
 //*********************************************************************
-// getUnsignedIntegerInput
+// get_unsigned_integer_input
 // Validates an user-provided integer unsigned input.
 // prompt: user provided integer input.
 // Return- validated unsigned input.
 //**********************************************************************
-inline unsigned int getUnsignedIntegerInput(const std::string& prompt) {
+inline unsigned int get_unsigned_integer_input(const std::string& prompt) {
     unsigned int input;
     std::cout << prompt;
     std::cin >> input;

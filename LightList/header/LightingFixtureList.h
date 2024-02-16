@@ -1,4 +1,11 @@
 // File Name: PositionList.h
+// Author: Jesse Walser- Castro
+// Date: 02/13/2022
+// Assignment Number: 1 
+// Data Structures & Algorithms Spring 2024
+// Declares class LightingFixtureList, which represents a hanging position to store objects from
+// class LightingFixture
+
 #ifndef LIGHTING_FIXTURE_LIST_H
 #define LIGHTING_FIXTURE_LIST_H
 
@@ -9,11 +16,9 @@
 #include "LightingFixture.h"
 
 
-// Defines class LightingFixtureList 
-
 //**********************************************************************
 // LightingFixtureList
-// Defines linked list class.
+// Defines linked list class LightingFixtureList.
 //**********************************************************************
 
 class LightingFixtureList {
@@ -23,25 +28,26 @@ private:
         LightingFixture fixture;
         Node* next;
 
-        // Constructor
-        Node(const LightingFixture& fixture) : fixture(fixture), next(nullptr) {} // Define the constructor
+        // Constructor initializes node & sets "next" ptr to end of list.
+        Node(const LightingFixture& fixture) : fixture(fixture), next(nullptr) {} 
     };
     
     Node* top;
-    int count; //Member variable to store the count of lighting fixtures.
+    int count_; //Member variable to store the count of lighting fixtures.
+
 public:
       
     LightingFixtureList(); 
     ~LightingFixtureList();
-    
-    void display();
-    void addToTop(LightingFixture fixture);
-    // void addtoBottom(LightingFixture fixture);
-    int fixtureCount() const;
-    bool moveToTop(int fixtureID);
-    void updateFixtureSpecs(int fixtureID);
-    signed int removeFixtureByID(int fixtureID);   
+    int FixtureCount() const;
 
+    void Display();
+    void AddToTop(LightingFixture fixture);
+    void UpdateFixtureSpecs(int fixtureID_);
+    
+    bool MoveToTop(int fixtureID_);    
+    signed int RemoveFixtureByID(int fixtureID_);   
+    // void AddToBottom(LightingFixture fixture);
 };
 
 

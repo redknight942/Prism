@@ -20,7 +20,7 @@
 //**********************************************************************
 LightingFixtureList::LightingFixtureList() {
     top = nullptr;
-    count = 0;
+    count_ = 0;
 }
 
 //*********************************************************************
@@ -47,7 +47,7 @@ LightingFixtureList::~LightingFixtureList() {
 // Parameters- None.
 // Return- integer of count
 //**********************************************************************
-int LightingFixtureList::fixtureCount() const {
+int LightingFixtureList::FixtureCount() const {
     int sum = 0;
     Node* current = top;
     while (current) {
@@ -59,12 +59,12 @@ int LightingFixtureList::fixtureCount() const {
 }
 
 //*********************************************************************
-// addToTop
+// AddToTop
 // Adds a new fixture to the top of the linked list.
 // new_ID: user provided ID to add.
 // Return- No return.
 //**********************************************************************
-void LightingFixtureList::addToTop(LightingFixture fixture)
+void LightingFixtureList::AddToTop(LightingFixture fixture)
 {
     //Allocation
     Node* temp = new Node(fixture);
@@ -85,29 +85,29 @@ void LightingFixtureList::addToTop(LightingFixture fixture)
 // Parameters- None.
 // Return- No return.
 //**********************************************************************
-void LightingFixtureList::display() {
+void LightingFixtureList::Display() {
     Node* current = top; 
     
     while (current != nullptr) {        // Display fixture details
-        std::cout << "Fixture ID: " << current->fixture.fixtureID << std::endl
-            << current->fixture.fixtureType << std::endl
+        std::cout << "Fixture ID: " << current->fixture.fixture_id_ << std::endl
+            << current->fixture.fixture_type_ << std::endl
             << "----------------" << std::endl
-            << " Barrel Size: " << current->fixture.barrelSize << std::endl            
-            << " Gobo: " << current->fixture.gobo << std::endl
-            << " X Position: " << current->fixture.lateralPosition << "'" << std::endl
-            << " Y Position: " << current->fixture.verticalPosition << "'" << std::endl << std::endl;;
+            << " Barrel Size: " << current->fixture.barrel_size_ << std::endl            
+            << " Gobo: " << current->fixture.gobo_ << std::endl
+            << " X Position: " << current->fixture.lateral_position_ << "'" << std::endl
+            << " Y Position: " << current->fixture.vertical_position_ << "'" << std::endl << std::endl;;
         current = current->next;
     }
 }
 
 /*
 //*********************************************************************
-// addToBottom (NOT YET IMPLEMENTED)
+// AddToBottom (NOT YET IMPLEMENTED)
 // adds a fixture to the bottom.
 // title: user provided fixture to add
 // Return- No return.
 //**********************************************************************
-void LightingFixtureList::add_to_Bottom(LightingFixture fixture) {
+void LightingFixtureList::Add_to_Bottom(LightingFixture fixture) {
 
     //Allocation
     Node* new_node;
@@ -133,32 +133,32 @@ void LightingFixtureList::add_to_Bottom(LightingFixture fixture) {
 */
 
 //*********************************************************************
-// removeFixtureByID
+// RemoveFixtureByID
 // Removes a node based on FixtureID.
 // int fixtureID
 // Return- True/ False depending on outcome of the removal function.
 //**********************************************************************
-signed int LightingFixtureList::removeFixtureByID(int fixtureID) {
+signed int LightingFixtureList::RemoveFixtureByID(int fixture_id_) {
     int fixtures_removed = 0; 
-    while (fixtureID != -1) {
+    while (fixture_id_ != -1) {
         if (top == nullptr) {
-            std::cout << "List is empty." << std::endl;
+            std::cout << "All fixtures have been removed." << std::endl;
             return fixtures_removed; // Exit if list is empty
         }
 
-        if (top->fixture.fixtureID == fixtureID) {
+        if (top->fixture.fixture_id_ == fixture_id_) {
             // If the fixture to be removed is at the top of the list
             Node* temp = top;
             top = top->next;
             delete temp;
-            std::cout << "Deleted fixture: " << fixtureID << std::endl;
+            std::cout << "Deleted fixture: " << fixture_id_ << std::endl;            
             fixtures_removed++;
         }
         else {
             Node* prev = nullptr;
             Node* current = top;
 
-            while (current != nullptr && current->fixture.fixtureID != fixtureID) {
+            while (current != nullptr && current->fixture.fixture_id_ != fixture_id_) {
                 // Traverse the list
                 prev = current;
                 current = current->next;
@@ -170,13 +170,13 @@ signed int LightingFixtureList::removeFixtureByID(int fixtureID) {
             else {
                 prev->next = current->next;
                 delete current;
-                std::cout << "Deleted fixture: " << fixtureID << std::endl;
+                std::cout << "Deleted fixture: " << fixture_id_ << std::endl;
                 fixtures_removed++;
             }
         }
 
         std::cout << "Enter fixtureID to delete, or -1 to exit: ";
-        fixtureID = getUnsignedIntegerInput("");
+        fixture_id_ = get_unsigned_integer_input("");
 
     }
 
@@ -185,17 +185,17 @@ signed int LightingFixtureList::removeFixtureByID(int fixtureID) {
 
 
 //*********************************************************************
-// moveToTop
+// MoveToTop
 // moves a node to the top
-// title: user provided title to move
+// fixture_id_: user provided ID to move to top. 
 // Return- True/ False depending on success of function.
 //**********************************************************************
-bool LightingFixtureList::moveToTop(int fixtureID) {
+bool LightingFixtureList::MoveToTop(int fixture_id_) {
     Node* p = top;     //traverse the list
     Node* n = nullptr; //trailing node ptr
 
     //skips nodes until fixtureID matches or reach the end of the list
-    while (p && p->fixture.fixtureID != fixtureID) {
+    while (p && p->fixture.fixture_id_ != fixture_id_) {
         n = p;           //saves it
         p = p->next;    //advances it
     }
@@ -216,17 +216,17 @@ bool LightingFixtureList::moveToTop(int fixtureID) {
 
 
 //*********************************************************************
-// updateFixtureSpecs
+// UpdateFixtureSpecs
 // Updates a fixture based on a provided ID.
 // int fixtureID
 // Return- No return.
 //**********************************************************************
-void LightingFixtureList::updateFixtureSpecs(int fixtureID) {
-    unsigned int newFixtureID = std::abs(fixtureID);
-    unsigned int newBarrelSize = 0;
-    std::string newFixtureType;
-    std::string newGobo;
-    signed int newLateralPosition, newVerticalPosition = 0;
+void LightingFixtureList::UpdateFixtureSpecs(int fixture_id_) {
+    unsigned int new_fixture_id = std::abs(fixture_id_);
+    unsigned int new_barrel_size = 0;
+    std::string new_fixture_type;
+    std::string new_gobo;
+    signed int new_lateral_position, new_vertical_position = 0;
     
     if (top == nullptr) {
         // Create a new node and set it as the top of the list
@@ -234,34 +234,34 @@ void LightingFixtureList::updateFixtureSpecs(int fixtureID) {
         top = new Node(newFixture);        
     }
         
-    std::cout << "Enter new fixture Type for fixture with ID " << fixtureID << ": ";
+    std::cout << "Enter new fixture Type for fixture with ID " << fixture_id_ << ": ";
     std::cin.ignore(); // Clear any remaining characters from the input buffer
-    std::getline(std::cin, newFixtureType);
+    std::getline(std::cin, new_fixture_type);
 
-    std::cout << "Enter new barrel size for fixture with ID " << fixtureID << ": ";
-    newBarrelSize = getUnsignedIntegerInput("");
+    std::cout << "Enter new barrel size for fixture with ID " << fixture_id_ << ": ";
+    new_barrel_size = get_unsigned_integer_input("");
 
-    std::cout << "Enter new gobo for fixture with ID " << fixtureID << ": ";
+    std::cout << "Enter new gobo for fixture with ID " << fixture_id_ << ": ";
     std::cin.ignore(); // Clear any remaining characters from the input buffer
-    std::getline(std::cin, newGobo);   
+    std::getline(std::cin, new_gobo);   
 
-    std::cout << "Enter new LateralPosition for fixture with ID" << fixtureID << ": ";
-    newLateralPosition = getSignedIntegerInput("");
+    std::cout << "Enter new LateralPosition for fixture with ID" << fixture_id_ << ": ";
+    new_lateral_position = get_signed_integer_input("");
 
-    std::cout << "Enter new VerticalPosition for fixture with ID" << fixtureID << ": ";
-    newVerticalPosition = getSignedIntegerInput("");
+    std::cout << "Enter new VerticalPosition for fixture with ID" << fixture_id_ << ": ";
+    new_vertical_position = get_signed_integer_input("");
     std::cout << std::endl;
     
     // Check if the list is empty
     //     
     Node* current = top;
     while (current != nullptr) {
-        if (current->fixture.fixtureID == fixtureID) {
-            current->fixture.fixtureType = newFixtureType;
-            current->fixture.barrelSize = newBarrelSize;           
-            current->fixture.lateralPosition = newLateralPosition;
-            current->fixture.verticalPosition = newVerticalPosition;
-            current->fixture.gobo = newGobo;
+        if (current->fixture.fixture_id_ == fixture_id_) {
+            current->fixture.fixture_type_ = new_fixture_type;
+            current->fixture.barrel_size_ = new_barrel_size;           
+            current->fixture.lateral_position_ = new_lateral_position;
+            current->fixture.vertical_position_ = new_vertical_position;
+            current->fixture.gobo_ = new_gobo;
             return; // Exit loop once the fixture is found and updated
         }
         current = current->next;
