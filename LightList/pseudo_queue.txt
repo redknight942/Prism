@@ -1,0 +1,55 @@
+CLASS FixtureQueue
+    FUNCTION VARIABLES:
+        - Array or linked list to store LightingFixture objects
+        - Integer variables to keep track of front and rear positions of the queue
+
+    CONSTRUCTOR:
+        FUNCTION FixtureQueue()
+            Initialize the queue with an empty array.
+            Set front and rear positions to -1
+
+    DESTRUCTOR:
+        FUNCTION ~Queue()
+            WHILE queue != empty
+                CALL dequeue() to remove elements from the queue
+            END WHILE
+            Free dynamically allocated memory.
+
+    FUNCTION enqueue(fixture)
+        IF queue is full
+            PRINT "FixtureQueue overflow"
+            RETURN
+        END IF
+        IF queue is empty
+            SET front and rear positions to 0
+        END IF
+        INCREMENT rear position by 1
+        ASSIGN fixture to the position of the rear element in the array
+
+    FUNCTION dequeue()
+        IF queue is empty
+            PRINT "FixtureQueue underflow."
+            RETURN NULL
+        END IF
+        ASSIGN the fixture at the front position to temporary variable temp_fixture
+        IF front position is equal to rear position
+            SET front and rear positions to -1 (queue is empty)
+        ELSE
+            INCREMENT front position by 1
+        END IF
+        RETURN temp_fixture
+
+    FUNCTION front()
+        IF queue is empty
+            PRINT "Queue is empty."
+            RETURN NULL or throw an exception
+        END IF
+        RETURN the fixture at the front position
+
+    FUNCTION isEmpty()
+        RETURN true if front and rear positions are -1, false otherwise
+
+    FUNCTION isFull()
+        RETURN true if queue is full, false otherwise
+
+END CLASS

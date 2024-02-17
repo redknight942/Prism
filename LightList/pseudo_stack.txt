@@ -1,0 +1,43 @@
+CLASS FocusStack
+	MEMBER VARIABLES: 
+		Array to store objects class LightFixture to keep track of fixture with ID & focus
+		Integer to keep track of top element position
+
+	CONSTRUCTOR
+		FocusStack()
+			Initialize the stack with empty array.
+			Set top element to -1
+
+	FUNCTION push(fixture)
+		IF FocusStack is full
+			PRINT "Overflow"
+			RETURN
+		END IF
+
+		INCREMENT Top element pos ++
+		ASSIGN fixture to the position of top element in array.
+
+	
+    FUNCTION pop()
+        IF stack is empty
+            PRINT "FocusStack underflow"
+            RETURN NULL or throw an exception
+        END IF
+        ASSIGN the fixture at the top position to a temporary variable
+        DECREMENT top element position by 1
+        RETURN the temporary variable
+
+    FUNCTION top()
+        IF stack is empty
+            PRINT "Stack of fixtures to focus is empty"
+            RETURN NULL or throw an exception
+        END IF
+        RETURN the fixture at the top position
+
+    FUNCTION isEmpty()
+        RETURN true if top element position is -1, false otherwise
+
+    FUNCTION isFull()
+        RETURN true if stack is full, false otherwise
+
+END CLASS

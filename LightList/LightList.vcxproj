@@ -28,6 +28,15 @@
     <ClInclude Include="header\LightingFixtureList.h" />
     <ClInclude Include="input_utils.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="pseudo_actual.txt" />
+    <Text Include="pseudo_stack.txt" />
+    <Text Include="pseudo_queue.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

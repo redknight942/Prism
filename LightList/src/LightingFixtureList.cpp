@@ -41,6 +41,15 @@ LightingFixtureList::~LightingFixtureList() {
     top = nullptr;
 }
 
+
+//*********************************************************************
+// createNewHangingPosition
+// Creates a new linked list.
+// Parameters- None.
+// Return- integer of count
+//**********************************************************************
+void createNewHangingPosition(int new_hang_position) {}
+
 //*********************************************************************
 // FixtureCount
 // Returns the total number of fixtures currently stored in the linked list.

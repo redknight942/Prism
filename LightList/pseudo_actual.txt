@@ -1,0 +1,180 @@
+"input_utils.h"
+FUNCTION get_signed_integer_input(const string& prompt) : integer
+    DECLARE input as integer
+    PRINT prompt
+    READ input from user
+
+    WHILE input is invalid
+        PRINT "Invalid input. Please enter a valid signed integer: "
+        CLEAR error flag
+        DISCARD invalid input
+        READ input again
+
+    RETURN input
+
+FUNCTION get_unsigned_integer_input(const string& prompt) : unsigned integer
+    DECLARE input as unsigned integer
+    PRINT prompt
+    READ input from user
+
+    WHILE input is invalid
+        PRINT "Invalid input. Please enter a valid unsigned integer: "
+        CLEAR error flag
+        DISCARD invalid input
+        READ input again
+
+    RETURN input
+
+
+"LightingFixture.h"
+CLASS LightingFixture
+    MEMBER VARIABLES:
+        - fixture_id_: unsigned integer
+        - barrel_size_: unsigned integer
+        - lateral_position_: signed integer
+        - vertical_position_: signed integer
+        - gobo_: string
+        - fixture_type_: string
+
+    CONSTRUCTOR:
+        LightingFixture(const string& fixture_type_, unsigned int fixture_id_,
+                        unsigned int barrel_size_, const string& gobo_,
+                        signed int lateral_position_, signed int vertical_position_)
+            SET fixture_type_ to the provided fixture_type_
+            SET fixture_id_ to the provided fixture_id_
+            SET barrel_size_ to the provided barrel_size_
+            SET gobo_ to the provided gobo_
+            SET lateral_position_ to the provided lateral_position_
+            SET vertical_position_ to the provided vertical_position_
+
+END CLASS
+
+
+
+
+"LightingFixtureList.h"
+
+CLASS LightingFixtureList
+    MEMBER VARIABLES:
+        - top: Node pointer
+        - count_: integer
+
+    CLASS Node
+        MEMBER VARIABLES:
+            - fixture: LightingFixture object
+            - next: Node pointer
+
+        CONSTRUCTOR:
+            Node(const LightingFixture& fixture)
+
+    CONSTRUCTOR:
+        LightingFixtureList()
+
+    DESTRUCTOR:
+        ~LightingFixtureList()
+
+    FUNCTION FixtureCount() : integer
+        RETURNS count_
+
+    FUNCTION Display()
+        PRINT "Displaying fixtures"
+
+    FUNCTION AddToTop(LightingFixture fixture)
+        ADD fixture to the top of the list
+
+    FUNCTION UpdateFixtureSpecs(int fixtureID_)
+        UPDATE fixture specifications based on fixtureID_
+
+    FUNCTION MoveToTop(int fixtureID_) : boolean
+        MOVE fixture with fixtureID_ to the top of the list
+        RETURNS true if successful, false otherwise
+
+    FUNCTION RemoveFixtureByID(int fixtureID_) : signed int
+        REMOVE fixture with fixtureID_ from the list
+        RETURNS the number of fixtures removed
+
+END CLASS
+
+
+
+
+"LightingFixtureList.cpp"
+INCLUDE "LightingFixtureList.h"
+
+IMPLEMENTATION OF LightingFixtureList CONSTRUCTOR
+    INITIALIZE top to nullptr
+    INITIALIZE count_ to 0
+
+IMPLEMENTATION OF LightingFixtureList DESTRUCTOR
+    DELETE all nodes in the list
+
+IMPLEMENTATION OF FixtureCount() FUNCTION
+    RETURN count_
+
+IMPLEMENTATION OF Display() FUNCTION
+    TRAVERSE the list and PRINT each fixture
+
+IMPLEMENTATION OF AddToTop(LightingFixture fixture) FUNCTION
+    CREATE a new node with fixture
+    SET the new node's next pointer to top
+    SET top to the new node
+    INCREMENT count_
+
+IMPLEMENTATION OF UpdateFixtureSpecs(int fixtureID_) FUNCTION
+    TRAVERSE the list to find the fixture with fixtureID_
+    UPDATE the fixture's specifications
+
+IMPLEMENTATION OF MoveToTop(int fixtureID_) FUNCTION
+    TRAVERSE the list to find the fixture with fixtureID_
+    MOVE the fixture to the top of the list
+    RETURN true if successful, false otherwise
+
+IMPLEMENTATION OF RemoveFixtureByID(int fixtureID_) FUNCTION
+    TRAVERSE the list to find and REMOVE the fixture with fixtureID_
+    RETURN the number of fixtures removed
+
+"main.h"
+FUNCTION main()
+
+"driver.cpp"
+	INCLUDE "main.h"
+	INCLUDE "input_utils.h"
+	INCLUDE  "LightingFixtureList.h"
+	
+BEGIN MAIN MENU
+REPEAT UNTIL choice = 0
+    PRINT "Menu Options:"
+    PRINT "1. Update fixtures."
+    PRINT "2. Delete fixtures."
+    PRINT "3. Display fixtures."
+    PRINT "0. Exit the program."
+    choice = get_unsigned_integer_input("")
+    SWITCH choice
+        CASE 0:
+            PRINT "Exiting."
+            BREAK
+        CASE 1:
+            PRINT "Enter fixtureID to update, or -1 to exit:"
+            temp_fixture_id = get_unsigned_integer_input("")
+            WHILE temp_fixture_id != -1
+                CALL UpdateFixtureSpecs(temp_fixture_id)
+                PRINT "Enter fixtureID to update, or -1 to exit:"
+                temp_fixture_id = get_unsigned_integer_input("")
+            END WHILE
+            temp_fixture_id = 0 // Resets ID
+            BREAK
+        CASE 2:
+            PRINT "Delete fixtures by ID. -1 to exit."
+            temp_fixture_id = get_unsigned_integer_input("")
+            removed_fixture = CALL RemoveFixtureByID(temp_fixture_id)
+            PRINT "Removed ", removed_fixture, " fixtures."
+            BREAK
+        CASE 3:
+            PRINT "Current amount of fixtures on hanging position __ is: ", CALL FixtureCount()
+            CALL Display()
+            BREAK
+        DEFAULT:
+            PRINT "Invalid choice. Please try again."
+    END SWITCH
+END REPEAT
+END MAIN MENU

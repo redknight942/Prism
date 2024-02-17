@@ -39,6 +39,7 @@ public:
       
     LightingFixtureList(); 
     ~LightingFixtureList();
+    void createNewHangingPosition(int new_hang_position);
     int FixtureCount() const;
 
     void Display();

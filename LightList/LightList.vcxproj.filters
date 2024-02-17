@@ -36,4 +36,23 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="pseudo_actual.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="pseudo_stack.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="pseudo_queue.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ClassDiagram1.cd">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
